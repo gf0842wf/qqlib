@@ -1,6 +1,5 @@
 qqlib
 ===
-[![PyPI](https://img.shields.io/pypi/v/qqlib.svg)]()
 
 Python版QQ登录库，兼容Python2.x和Python3.x。
 
@@ -10,12 +9,6 @@ Python版QQ登录库，兼容Python2.x和Python3.x。
 $ pip install qqlib
 # or
 $ pip install git+https://github.com/gera2ld/qqlib.git
-```
-
-快速开始
----
-``` sh
-$ python -m qqlib
 ```
 
 高级用法
