@@ -6,9 +6,7 @@ Python版QQ登录库，兼容Python2.x和Python3.x。
 安装
 ---
 ``` sh
-$ pip install qqlib
-# or
-$ pip install git+https://github.com/gera2ld/qqlib.git
+sudo pip install git+https://github.com/gf0842wf/qqlib.git -t .
 ```
 
 高级用法
