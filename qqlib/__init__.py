@@ -9,13 +9,16 @@ from . import tea
 
 __all__ = ['QQ', 'LogInError', 'NeedVerifyCode']
 
+
 class LogInError(Exception): pass
+
 
 class NeedVerifyCode(Exception):
     def __init__(self, verifier, message=None):
         Exception.__init__(self)
         self.verifier = verifier
         self.message = message
+
 
 class Verifier:
     url_check = 'http://check.ptlogin2.qq.com/check'
@@ -106,7 +109,7 @@ class Verifier:
             'vsig': self.vsig,
             'ans': vcode,
         })
-        r.encoding='utf-8'
+        r.encoding = 'utf-8'
         g = r.json()
         if g['errorCode'] != '0':
             self.throw(g['errMessage'])
@@ -115,6 +118,7 @@ class Verifier:
 
     def throw(self, message=None):
         raise NeedVerifyCode(self, message)
+
 
 class QQ:
     appid = 549000912
@@ -139,6 +143,7 @@ class QQ:
         return func(url, **kw)
 
     url_xlogin = 'http://xui.ptlogin2.qq.com/cgi-bin/xlogin'
+
     def xlogin(self):
         '''
         Get a log-in signature in cookies.
@@ -152,6 +157,7 @@ class QQ:
         })
 
     url_login = 'http://ptlogin2.qq.com/login'
+
     def login(self, force=False):
         login_sig = self.session.cookies['pt_login_sig']
         if force:
@@ -207,6 +213,7 @@ class QQ:
         '69A453F27DFDDF83C016D928B3CBF4C7',
         16
     ), 3)
+
     def pwdencode(self, vcode, uin, pwd):
         '''
         Encode password with tea.

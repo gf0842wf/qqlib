@@ -4,6 +4,7 @@ QZone module
 
 from . import QQ
 
+
 class QZone(QQ):
     url_success = 'http://qzs.qq.com/qzone/v5/loginsucc.html?para=izone'
     url_feed = 'http://taotao.qzone.qq.com/cgi-bin/emotion_cgi_publish_v6'
@@ -19,25 +20,26 @@ class QZone(QQ):
     def feed(self, data):
         self.fetch(self.url_feed, params={
             'g_tk': self.g_tk(),
-        }, data = {
-            'syn_tweet_verson'    : 1,
-            'paramstr'            : 1,
-            'pic_template'        : '',
-            'richtype'            : '',
-            'richval'             : '',
-            'special_url'         : '',
-            'subrichtype'         : '',
-            'who'                 : 1,
-            'con'                 : data,
-            'feedversion'         : 1,
-            'ver'                 : 1,
-            'ugc_right'           : 1,
-            'to_tweet'            : 0,
-            'to_sign'             : 0,
-            'hostuin'             : self.user,
-            'code_version'        : 1,
-            'format'              : 'fs'
+        }, data={
+            'syn_tweet_verson': 1,
+            'paramstr': 1,
+            'pic_template': '',
+            'richtype': '',
+            'richval': '',
+            'special_url': '',
+            'subrichtype': '',
+            'who': 1,
+            'con': data,
+            'feedversion': 1,
+            'ver': 1,
+            'ugc_right': 1,
+            'to_tweet': 0,
+            'to_sign': 0,
+            'hostuin': self.user,
+            'code_version': 1,
+            'format': 'fs'
         })
+
 
 class MQZone(QZone):
     url_success = 'https://h5.qzone.qq.com/mqzone/index'
@@ -46,7 +48,7 @@ class MQZone(QZone):
     def feed(self, data):
         self.fetch(self.url_feed, params={
             'g_tk': self.g_tk(),
-        }, data = {
+        }, data={
             'opr_type': 'publish_shuoshuo',
             'res_uin': self.user,
             'content': data,
