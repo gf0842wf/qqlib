@@ -13,10 +13,10 @@ def login(qq):
                 break
             else:
                 if exc.message:
-                    print('Error:', exc.message)
+                    print 'Error:', exc.message
                 verifier = exc.verifier
                 open('verify.jpg', 'wb').write(verifier.fetch_image())
-                print('验证码已保存到verify.jpg')
+                print '验证码已保存到verify.jpg'
                 # 输入验证码
                 vcode = raw_input('请输入验证码：')
                 verifier.verify(vcode)
