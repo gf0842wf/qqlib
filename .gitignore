@@ -4,3 +4,10 @@ python*/
 *.egg-info/
 /build
 /dist
+cookies_*
+phantomjs
+verify.jpg
+/tmp
+/rsa
+/pyasn1
+/.idea

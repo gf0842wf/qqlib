@@ -3,14 +3,14 @@ from qqlib import qzone
 import qqlib
 
 
-def login(qq):
+def login(qq, retry=3):
     exc = None
     # 自动重试登录
-    while True:
+    for _ in xrange(retry):
         try:
             if exc is None:
                 qq.login()
-                break
+                return True
             else:
                 if exc.message:
                     print 'Error:', exc.message
@@ -23,8 +23,23 @@ def login(qq):
                 exc = None
         except qqlib.NeedVerifyCode as e:
             exc = e
+    if exc:
+        return False
+    else:
+        return True
 
 
-qq = qzone.QZone(980993313, 'flg829506--')
-login(qq)
-qq.feed('test feed')
+user = 100000
+password = 'password'
+qq = qzone.QZone(user, password)
+# qq.attempt_cookie()
+is_login = login(qq)
+if is_login:
+    qq.persist_cookie()
+    # qq.feed('ai')
+    # TODO: 检测空间是否能访问
+    qq.like_other('otherqq',
+                  'http://user.qzone.qq.com/otherqq',
+                  'http://user.qzone.qq.com/otherqq')
+else:
+    print 'login failed'

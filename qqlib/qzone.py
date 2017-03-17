@@ -1,8 +1,9 @@
-'''
+"""
 QZone module
-'''
+"""
 
 from . import QQ
+import time
 
 
 class QZone(QQ):
@@ -39,6 +40,23 @@ class QZone(QQ):
             'code_version': 1,
             'format': 'fs'
         })
+
+    url_like_other = 'https://h5.qzone.qq.com/proxy/domain/w.qzone.qq.com/cgi-bin/likes/internal_dolike_app'  # ?g_tk={g_tk}&qzonetoken={qzonetoken}
+
+    def like_other(self, other, unikey, curkey):
+        self.fetch(self.url_like_other, params={'g_tk': self.g_tk()},
+                   data={
+                       'qzreferrer': 'http://user.qzone.qq.com/{user}'.format(user=other),
+                       'opuin': self.user,
+                       'unikey': unikey,
+                       'curkey': curkey,
+                       'from': '1',
+                       'face': '0',
+                       'query_count': '200',
+                       'appid': '7030',
+                       'fupdate': '1',
+                       # 'zb_url': 'http://i.gtimg.cn/qzone/space_item/pre/3/72019_1.gif'
+                   })
 
 
 class MQZone(QZone):

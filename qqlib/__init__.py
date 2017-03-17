@@ -1,9 +1,9 @@
-'''
+"""
 QQ Login module
 Licensed to MIT
-'''
+"""
 
-import hashlib, re, binascii, base64
+import hashlib, re, binascii, base64, pickle
 import rsa, requests
 from . import tea
 
@@ -134,6 +134,19 @@ class QQ:
         self.session = requests.Session()
         self.xlogin()
 
+    def persist_cookie(self):
+        cookies = self.session.cookies
+        s_cookies = pickle.dumps(cookies)
+        with open('cookies_%s' % self.user, 'w') as f:
+            f.write(s_cookies)
+
+    def attempt_cookie(self):
+        with open('cookies_%s' % self.user) as f:
+            try:
+                self.session.cookies.update(pickle.loads(f.read()))
+            except Exception as e:
+                print e
+
     def fetch(self, url, data=None, **kw):
         if data is None:
             func = self.session.get
@@ -145,9 +158,9 @@ class QQ:
     url_xlogin = 'http://xui.ptlogin2.qq.com/cgi-bin/xlogin'
 
     def xlogin(self):
-        '''
+        """
         Get a log-in signature in cookies.
-        '''
+        """
         self.fetch(self.url_xlogin, params={
             'proxy_url': 'http://qzs.qq.com/qzone/v6/portal/proxy.html',
             'daid': 5,
@@ -215,9 +228,9 @@ class QQ:
     ), 3)
 
     def pwdencode(self, vcode, uin, pwd):
-        '''
+        """
         Encode password with tea.
-        '''
+        """
         # uin is the bytes of QQ number stored in unsigned long (8 bytes)
         salt = uin.replace(r'\x', '')
         h1 = hashlib.md5(pwd.encode()).digest()
